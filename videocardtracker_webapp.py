@@ -54,8 +54,7 @@ if 'Newegg' in gpu_company:
 	 		st.write(f"${item[1]['price']}")
 	 		st.write(item[1]['link'])
 	 		st.write("-------------------------------")
-
-if 'Canada Computers' in gpu_company:
+elif 'Canada Computers' in gpu_company:
 	if gpu:
 		url = f"https://www.canadacomputers.com/search/results_details.php?language=en&keywords={gpu}"
 
