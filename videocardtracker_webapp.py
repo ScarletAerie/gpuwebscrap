@@ -45,7 +45,7 @@ if 'Canada Computers' in gpu_company:
 			st.write(link)	
 
 
-if 'Newegg' in gpu_company:	
+elif 'Newegg' in gpu_company:	
 	
 	if gpu:
 		url = f"https://www.newegg.ca/p/pl?d={gpu}&N=4131"
