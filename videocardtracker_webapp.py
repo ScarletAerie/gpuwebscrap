@@ -14,38 +14,8 @@ st.write("This app performs webscraping for Computers part from companies such a
 gpu_company =st.multiselect('Select Company you would like to search', ['Newegg', 'Canada Computers'])
 gpu = st.text_input("What product do you want to search for? ")
 
-if 'Canada Computers' in gpu_company:
-	if gpu:
-		url = f"https://www.canadacomputers.com/search/results_details.php?language=en&keywords={gpu}"
 
-		page = requests.get(url).text
-
-		doc = BeautifulSoup(page, "html.parser")
-		div = doc.find("div",{"id": "product-list"})
-
-		items = div.find_all(text=re.compile(gpu))
-
-		items_found = {}
-
-		for item in items:
-			parent= item.parent
-			if parent.name != "a":
-				continue
-			link = parent['href']	
-			next_parent = item.find_parent(class_="px-0 col-12 productInfoSearch pt-2")
-			
-			try: 
-				price = next_parent.find(class_="d-block mb-0 pq-hdr-product_price line-height").find("strong").string
-				items_found[item] = {"price": int(price.replace(",", "")), "link": link}
-			except:
-				pass
-
-			st.write(item)
-			st.write(price)
-			st.write(link)	
-
-
-elif 'Newegg' in gpu_company:	
+if 'Newegg' in gpu_company:	
 	
 	if gpu:
 		url = f"https://www.newegg.ca/p/pl?d={gpu}&N=4131"
@@ -85,10 +55,35 @@ elif 'Newegg' in gpu_company:
 	 		st.write(item[1]['link'])
 	 		st.write("-------------------------------")
 
+if 'Canada Computers' in gpu_company:
+	if gpu:
+		url = f"https://www.canadacomputers.com/search/results_details.php?language=en&keywords={gpu}"
 
+		page = requests.get(url).text
 
+		doc = BeautifulSoup(page, "html.parser")
+		div = doc.find("div",{"id": "product-list"})
 
+		items = div.find_all(text=re.compile(gpu))
 
+		items_found = {}
+
+		for item in items:
+			parent= item.parent
+			if parent.name != "a":
+				continue
+			link = parent['href']	
+			next_parent = item.find_parent(class_="px-0 col-12 productInfoSearch pt-2")
+			
+			try: 
+				price = next_parent.find(class_="d-block mb-0 pq-hdr-product_price line-height").find("strong").string
+				items_found[item] = {"price": int(price.replace(",", "")), "link": link}
+			except:
+				pass
+
+			st.write(item)
+			st.write(price)
+			st.write(link)	
 
 
  
