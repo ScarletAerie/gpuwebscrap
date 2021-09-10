@@ -59,35 +59,35 @@ if 'Newegg' in gpu_company:
 	 		st.write(item[1]['link'])
 	 		st.write("-------------------------------")
 
-# elif 'Canada Computers' in gpu_company:
-# 	if gpu:
-# 		url = f"https://www.canadacomputers.com/search/results_details.php?language=en&keywords={gpu}"
+elif 'Canada Computers' in gpu_company:
+	if gpu:
+		url = f"https://www.canadacomputers.com/search/results_details.php?language=en&keywords={gpu}"
 
-# 		page = requests.get(url).text
+		page = requests.get(url).text
 
-# 		doc = BeautifulSoup(page, "html.parser")
-# 		div = doc.find("div",{"id": "product-list"})
+		doc = BeautifulSoup(page, "html.parser")
+		div = doc.find("div",{"id": "product-list"})
 
-# 		items = div.find_all(text=re.compile(gpu))
+		items = div.find_all(text=re.compile(gpu))
 
-# 		items_found = {}
+		items_found = {}
 
-# 		for item in items:
-# 			parent= item.parent
-# 			if parent.name != "a":
-# 				continue
-# 			link = parent['href']	
-# 			next_parent = item.find_parent(class_="px-0 col-12 productInfoSearch pt-2")
+		for item in items:
+			parent= item.parent
+			if parent.name != "a":
+				continue
+			link = parent['href']	
+			next_parent = item.find_parent(class_="px-0 col-12 productInfoSearch pt-2")
 			
-# 			try: 
-# 				price = next_parent.find(class_="d-block mb-0 pq-hdr-product_price line-height").find("strong").string
-# 				items_found[item] = {"price": int(price.replace(",", "")), "link": link}
-# 			except:
-# 				pass
+			try: 
+				price = next_parent.find(class_="d-block mb-0 pq-hdr-product_price line-height").find("strong").string
+				items_found[item] = {"price": int(price.replace(",", "")), "link": link}
+			except:
+				pass
 
-# 			st.write(item)
-# 			st.write(price)
-# 			st.write(link)	
+			st.write(item)
+			st.write(price)
+			st.write(link)	
 
 
  
