@@ -22,8 +22,12 @@ if 'Newegg' in gpu_company:
 		page = requests.get(url).text
 		doc = BeautifulSoup(page, "html.parser")
 
-		page_text = doc.find(class_="list-tool-pagination-text").strong
-		pages = int(str(page_text).split("/")[-2].split(">")[-1][:-1])
+		try:
+			page_text = doc.find(class_="list-tool-pagination-text").strong
+			pages = int(str(page_text).split("/")[-2].split(">")[-1][:-1])
+		except:
+			pass
+			
 
 		items_found = {}
 
@@ -54,6 +58,7 @@ if 'Newegg' in gpu_company:
 	 		st.write(f"${item[1]['price']}")
 	 		st.write(item[1]['link'])
 	 		st.write("-------------------------------")
+
 # elif 'Canada Computers' in gpu_company:
 # 	if gpu:
 # 		url = f"https://www.canadacomputers.com/search/results_details.php?language=en&keywords={gpu}"
