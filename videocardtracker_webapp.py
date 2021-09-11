@@ -24,12 +24,13 @@ if 'Newegg' in gpu_company:
 
 		try:
 			page_text = doc.find(class_="list-tool-pagination-text").strong
-			pages = int(str(page_text).split("/")[-2].split(">")[-1][:-1])
-		except:
+					except:
 			pass
 			
 
 		items_found = {}
+		pages = int(str(page_text).split("/")[-2].split(">")[-1][:-1])
+
 
 		for page in range(1, pages + 1):
 			url = f"https://www.newegg.ca/p/pl?d={gpu}&N=4131&page={page}"
