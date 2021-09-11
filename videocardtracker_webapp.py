@@ -24,7 +24,7 @@ if 'Newegg' in gpu_company:
 
 		try:
 			page_text = doc.find(class_="list-tool-pagination-text").strong
-					except:
+		except:
 			pass
 			
 
