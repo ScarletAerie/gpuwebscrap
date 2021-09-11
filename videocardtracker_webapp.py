@@ -11,7 +11,7 @@ st.title("Computer Part Scraper")
 
 st.write("This app performs webscraping for Computers part from companies such as: Canada Computers, Newegg, etc")
 
-gpu_company =st.multiselect('Select Company you would like to search', ['Newegg', 'Canada Computers'])
+gpu_company =st.multiselect('Select Company you would like to search', ['Newegg', 'Canada Computers', 'Memory Express'])
 gpu = st.text_input("What product do you want to search for? ")
 
 
@@ -89,6 +89,34 @@ elif 'Canada Computers' in gpu_company:
 			st.write(item)
 			st.write(price)
 			st.write(link)	
+
+elif 'Memory Express' in gpu_company:
+	if gpu:
+		url = f"https://www.memoryexpress.com/Search/Products?Search={gpu}&PageSize=120"
+		page = requests.get(url).text
+		doc = BeautifulSoup(page, "html.parser")
+
+
+		items_found = {}
+		div = doc.find(class_="c-shca-container")
+		items = div.find_all(text=re.compile(gpu))
+
+		for item in items:
+			parent = item.parent
+			if parent.name != "a":
+				continue
+			link = parent ['href']
+			next_parent = item.find_parent(class_="c-shca-icon-item")
+			try: 
+				price = next_parent.find(class_="c-shca-icon-item__summary-list").find("span").string
+				items_found[item] = {"price": int(price.replace(",", "")), "link": link}
+			except:
+				pass
+			st.write(item)
+			st.write(price)
+			st.write("https://www.memoryexpress.com" + link)	
+			
+
 
 
  
