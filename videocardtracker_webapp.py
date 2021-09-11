@@ -21,12 +21,7 @@ if 'Newegg' in gpu_company:
 		url = f"https://www.newegg.ca/p/pl?d={gpu}&N=4131"
 		page = requests.get(url).text
 		doc = BeautifulSoup(page, "html.parser")
-
-		try:
-			page_text = doc.find(class_="list-tool-pagination-text").strong
-		except:
-			pass
-			
+		page_text = doc.find(class_="list-tool-pagination-text").strong
 
 		items_found = {}
 		pages = int(str(page_text).split("/")[-2].split(">")[-1][:-1])
