@@ -21,17 +21,15 @@ if 'Newegg' in gpu_company:
 		url = f"https://www.newegg.ca/p/pl?d={gpu}&N=4131"
 		page = requests.get(url).text
 		doc = BeautifulSoup(page, "html.parser")
-		page_text = doc.find(class_="list-tool-pagination-text").strong
-
 		items_found = {}
 		pages = int(str(page_text).split("/")[-2].split(">")[-1][:-1])
+		page_text = doc.find(class_="list-tool-pagination-text").strong
 
 
 		for page in range(1, pages + 1):
 			url = f"https://www.newegg.ca/p/pl?d={gpu}&N=4131&page={page}"
 			page = requests.get(url).text
 			doc = BeautifulSoup(page, "html.parser")
-
 			div = doc.find(class_="item-cells-wrap border-cells items-grid-view four-cells expulsion-one-cell")
 			items = div.find_all(text=re.compile(gpu))
 
@@ -87,7 +85,7 @@ elif 'Canada Computers' in gpu_company:
 
 elif 'Memory Express' in gpu_company:
 	if gpu:
-		url = f"https://www.memoryexpress.com/Search/Products?Search={gpu}&PageSize=120"
+		url = f"https://www.memoryexpress.com/Search/Products?Search={search_term}&PageSize=120"
 		page = requests.get(url).text
 		doc = BeautifulSoup(page, "html.parser")
 
@@ -107,11 +105,10 @@ elif 'Memory Express' in gpu_company:
 				items_found[item] = {"price": int(price.replace(",", "")), "link": link}
 			except:
 				pass
-			st.write(item)
-			st.write(price)
-			st.write("https://www.memoryexpress.com" + link)	
 			
 
-
+	print(item)
+	print("https://www.memoryexpress.com" + link)
+	print(price)
 
  
