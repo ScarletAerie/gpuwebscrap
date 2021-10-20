@@ -30,6 +30,7 @@ if 'Newegg' in gpu_company:
 			url = f"https://www.newegg.ca/p/pl?d={gpu}&N=4131&page={page}"
 			page = requests.get(url).text
 			doc = BeautifulSoup(page, "html.parser")
+			page_text = doc.find(class_="list-tool-pagination-text").strong
 			div = doc.find(class_="item-cells-wrap border-cells items-grid-view four-cells expulsion-one-cell")
 			items = div.find_all(text=re.compile(gpu))
 
